@@ -1,5 +1,7 @@
 # Tips
 
+![Alt text](image.png)
+
 - Searching for a key in dict takes only approximately O(1). So instead of list search, this is better. Use dit.get so it will return None without throwing an KeError when no such key exists.
 - In a palindrome question use below expand function. With that you can do almost anything. This will return the length of the possible palindrome with i to j centered. For example, expand(i,i) gives odd length palindrome. expand(i,i+1) gives even length palindromes.
 
@@ -65,6 +67,12 @@
                     out.append(j+[i])
         return out
 - When working with duplicates either sort or use a hash map
+```Pyton3
+    nums.sort()
+    for i in range(len(nums)):
+        if i==0 or nums[i]!=nums[i-1]:
+            backtrack(nums[i+1:])
+    # This avoirds the duplicates and deploy backtrack algorithm. REMEMBER REMEMEBR REMEMBER REMEMBER REMEMBER REMEMBER
 - Check below two codes for the power of the sort
 ```Python3
 # Before sort
@@ -99,3 +107,23 @@ class Solution:
             return out
         candidates.sort()
         return comb(candidates, target)
+- Use backtracking is easier and faster. That means you sae output at the terminating condition instead of returning it. You build the output while recurring and at the termination it would be finished.
+- bitmasking is super powerful in combinations. We convert combination task to binary conversion tasl. Super fast and elegant
+- In some cases, you can let a while loop run, making constant changes to an array indx until it sets to an expected value
+```Python3
+class Solution:
+  def firstMissingPositive(self, nums: List[int]) -> int:
+    n = len(nums)
+    
+    for i in range(n):
+        while 1<=nums[i]<=n and nums[i]!=nums[nums[i]-1]:
+            t = nums[i]
+            nums[i]=nums[t-1]
+            nums[t-1]=t
+            
+    
+    for i in range(n):
+        if nums[i] != i + 1:
+            return i + 1
+    
+    return n + 1
