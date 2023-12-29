@@ -127,3 +127,66 @@ class Solution:
             return i + 1
     
     return n + 1
+- If you want to find minimum and maximum dynamically on an array dependeing on the index, do not do it in the main itrtation. Instead of that, do a preprocess. With just one iteraton find min and max for all the iterations and use it next.This will reduce O(n)-->O(n)
+```Python3
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        left=[0 for i in range(len(height))]
+        right=[0 for i in range(len(height))]
+        lm=0
+        rm=0
+        v = 0
+        for i in range(len(height)):
+            if height[i]>lm:
+                lm = height[i]
+            left[i]=lm
+            if height[-1-i]>rm:
+                rm=height[-i-1]
+            right[-1-i]=rm
+        for i in range(1,len(height)-1):
+            h=min(left[i], right[i])
+            if h>height[i]:
+                v+=(h-height[i])
+        return v
+- To clockwise rotate a matrix by 90, reverse outer array and get transpose. By 180, reverse indiviual array, and fially the total array. By 270, reverse idnidvidaul arrays and get transpose of total
+- use defaultdict to assign intial values for the hash map
+```Python3
+    from collections import defaultdict
+    a=defaultdict(list)
+- In a cordinate system, or a chess board or something like that below are the charactristics to idnetify points
+    - Same row      =>  same x coordinate
+    - Same column   =>  same y coordinate
+    - Same main diagonal => same x-y
+    - Same anti diagonal => same x+y
+    This is useful to solve n queens proble.
+- In matrix spiral visit have four variables and chaneg them like below.
+```Python3
+class Solution:
+    def generateMatrix(self, n: int) -> List[List[int]]:
+        out=[[None for j in range(n)] for i in range(n)]
+        upper=left=0
+        lower=right=n-1
+        d=n
+        c=1
+        while upper<=lower:
+            for i in range(left, right+1):
+                out[upper][i]=c
+                c+=1
+            upper+=1
+            for i in range(upper, lower+1):
+                out[i][right]=c
+                c+=1
+            right-=1
+            for i in range(right, left-1,-1):
+                out[lower][i]=c
+                c+=1
+            lower-=1
+            for i in range(lower, upper-1, -1):
+                out[i][left] = c
+                c+=1
+            left+=1
+        return out
+- Number conversion
+```Python3
+bin(x) # from decima to binary
+int(x,2) #from binary to decimal
